@@ -1,0 +1,34 @@
+//Control Lights Using Hc05 Bluetooth via mobile app
+
+char data = 0;            
+void setup()
+{
+    Serial.begin(9600);      
+    pinMode(10, OUTPUT);
+    pinMode(8, OUTPUT);
+    pinMode(9, OUTPUT);
+}
+void loop()
+{
+   if(Serial.available() > 0)      
+   {
+      data = Serial.read();                            
+      Serial.print(data);        
+      Serial.print("\n");        
+      if(data == '1')              
+         digitalWrite(8,HIGH);   
+      else if(data == 'a'||'A')        
+         digitalWrite(8, LOW);    
+
+         if(data == '2')              
+         digitalWrite(9,HIGH);   
+      else if(data == 'b'||'B')        
+         digitalWrite(9, LOW);    
+
+         if(data == '3')              
+         digitalWrite(10,HIGH);   
+      else if(data == 'c'||'c')         
+         digitalWrite(10, LOW);   
+
+   }
+}

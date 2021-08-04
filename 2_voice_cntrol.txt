@@ -1,0 +1,78 @@
+//voice contol of lights and fan via mobile app
+String voice;
+int RED = 2;
+int GREEN = 3;
+int BLUE = 4;
+void RedOn(){
+digitalWrite (RED, HIGH);
+}
+void RedOf(){
+digitalWrite (RED, LOW);
+}
+void GreenOn(){
+digitalWrite (GREEN, HIGH);
+}
+void GreenOf(){
+digitalWrite (GREEN, LOW);
+}
+void BlueOn(){
+digitalWrite (BLUE, HIGH);
+}
+void BlueOf(){
+digitalWrite (BLUE, LOW);
+}
+void allon() {
+digitalWrite (RED, HIGH);
+digitalWrite (GREEN, HIGH);
+digitalWrite (BLUE, HIGH);
+}
+void allof() {
+digitalWrite (RED, LOW);
+digitalWrite (GREEN, LOW);
+digitalWrite (BLUE, LOW);
+}
+void setup() {
+Serial.begin(9600);
+pinMode(RED, OUTPUT);
+pinMode(GREEN, OUTPUT);
+pinMode(BLUE, OUTPUT);
+}
+void loop() {
+while(Serial.available()) {
+delay(10);
+char c=Serial.read();
+if(c=='#')
+{break; }
+voice += c;
+}
+if (voice.length() > 0) {
+Serial.println(voice);
+if ( voice == "all on" ||voice == "all")
+{
+allon() ;
+}
+else if ( voice=="all close" || voice =="close")
+{
+allof() ;
+}
+else if(voice =="light one on" ){
+RedOn();
+}
+else if(voice =="light one close"){
+RedOf();
+}
+else if(voice =="light 3 on" ||voice =="light three on" ){
+GreenOn();
+}
+else if( voice =="light 3 close" ||voice =="light three close"){
+GreenOf();
+}
+else if( voice =="fan on" || voice =="faan on" ||voice =="fen close"){
+BlueOn();
+}
+else if(voice =="fan close"||voice =="fan close" ||voice =="fen close"){
+BlueOf();
+}
+voice="";
+}
+}
